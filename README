@@ -11,3 +11,18 @@ This is a module that implements the brand bar for NC State University for Drupa
  	(Browse to: <site root>/admin/build/modules)
  4. Configure which brand bar you want to display on different sections of your site via the Block Administration page
  	(Browse to: <site root>/admin/build/block)
+ 	
+
+ 	
+/*********************************************/
+        TO DO / KNOWN ISSUES
+/*********************************************/
+
+If you are downloading the source from github (as opposed to one of the prepackaged downloads available there), you will need to download and copy the php-ncstate class into this module's directory as well.
+
+	Instructions:
+	1. Go to https://github.com/ncsuwebdev/PHP-Ncstate and download the package
+	2. Extract and copy the files into the ncstatebrandingbar/library directory, so that your path looks like this:
+		<site root>/sites/all/modules/ncstatebrandingbar/library/php-ncstate/Ncstate
+		
+	In future, this will be automated, but for now you have to take this extra step.
