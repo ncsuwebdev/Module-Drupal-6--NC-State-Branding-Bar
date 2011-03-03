@@ -23,23 +23,29 @@
 /*********************************************/
 
 	 1. Download the repo from github
+	 
 	 2. Copy to directory in <drupal site root>/sites/all/modules/ncstatebrandingbar
-	 	(so that this readme's path is: <drupal site root>/sites/all/modules/ncstatebrandingbar/readme)
+	 	(so that this readme's path is: 
+	 	<drupal site root>/sites/all/modules/ncstatebrandingbar/readme)
+	 
 	 3. Enable in Drupal module administartion page
-	 	(Browse to: <your-site>/admin/build/modules)
+	 	(<your-site>/admin/build/modules)
 	 
 	 Choose which option you want to use: 
 	 
 	 (A) One brand bar for the entire website
 	 
-	 		Configure which brand bar you want at the top of the page on the NC State Branding Bar Module Settings page
-	 		(<your-site>/admin/settings/ncstatebrandingbar)
+		Configure which brand bar you want at the top of the page 
+	 	on the NC State Branding Bar Module Settings page
+	 	
+	 	(<your-site>/admin/settings/ncstatebrandingbar)
 	 
 	 (B) Different brand bars for the different sections of the website 
 	 
-	 		Configure which brand bar you want to display on different sections of your site via the Block Administration page
-	 		(<your-site>/admin/build/block)
- 	
+	 	Configure which brand bar you want to display on different 
+	 	sections of your site via the Block Administration page
+	 	
+	 	(<your-site>/admin/build/block)
  	
  	
 /*********************************************/
