@@ -11,4 +11,3 @@ This is a module that implements the brand bar for NC State University for Drupa
  	(Browse to: <site root>/admin/build/modules)
  4. Configure which brand bar you want to display on different sections of your site via the Block Administration page
  	(Browse to: <site root>/admin/build/block)
-
