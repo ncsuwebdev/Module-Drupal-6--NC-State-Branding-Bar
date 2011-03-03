@@ -1,0 +1,147 @@
+<?php
+	
+	/*
+	* ncstatebrandingbar_help()
+	*
+	* Provide help and additional information about our module by implementing Drupal's hook_help().
+	* Because of the use of the .info file that exists, this hook is now optional. 
+	* However, it is a best practice to implement it.
+	* http://drupal.org/node/206756
+	*
+	*/
+	
+	function ncstatebrandingbar_help($path, $arg) {
+		$output = '';  //declare your output variable
+	  	switch ($path) {
+	    	case "admin/help#ncstatebrandingbar":
+	      	$output = '<p>'.  t("This module will create a block for each version of the branding bar.") .'</p>';
+	      	$output .= '<p>'.  t("You can then assign a branding bar to different sections of the via each block's configuration page.") .'</p>';
+	      	$output .= '<p>'.  t("<strong>For Example:</strong>") .'</p>';
+	      	$output .= '<p>'.  t("You could display the \"Black\" branding bar on one particular page, but the \"Red\" branding bar on all other pages.") .'</p>';
+	      	break;
+	  	}
+	  	return $output;
+	} // end function ncstatebrandingbar_help
+	
+	/**
+	* ncstatebrandingbar_block
+	* 
+	* Implementation of hook_block().
+	* @param string $op one of "list", "view", "save" and "configure"
+	* @param integer $delta code to identify the block
+	* @param array $edit only for "save" operation
+	* http://drupal.org/node/206758
+	*/
+
+	function ncstatebrandingbar_block($op = 'list', $delta = 0, $edit = array()) {
+		  
+		$blocks = array();
+		
+		if ($op == 'list') {
+		    $blocks[0] = array(
+		      'info' => t('NC State Brand Bar: Red Text on White'), 
+		    );
+		
+		    $blocks[1] = array(
+		      'info' => t('NC State Brand Bar: Red Text on White (Centered)'), 
+		    );
+		    
+		    $blocks[2] = array(
+		      'info' => t('NC State Brand Bar: White Text on Red'), 
+		    );
+
+		    $blocks[3] = array(
+		      'info' => t('NC State Brand Bar: White Text on Red (Centered)'), 
+		    );
+		    
+		    $blocks[4] = array(
+		      'info' => t('NC State Brand Bar: White Text on Black'), 
+		    );
+
+		    $blocks[5] = array(
+		      'info' => t('NC State Brand Bar: White Text on Black (Centered)'), 
+		    );
+		    
+		    $blocks[6] = array(
+		      'info' => t('NC State Brand Bar: Black Text on White'), 
+		    );
+
+		    $blocks[7] = array(
+		      'info' => t('NC State Brand Bar: Black Text on White (Centered)'), 
+		    );
+		
+		    return $blocks;
+		  
+		} elseif ($op == 'view') {
+		    
+		  	switch ($delta) {
+		      
+		  		case 0:
+			        
+			        $block = array(
+			          'subject' => t('NC State Brand Bar: Red Text on White'), 
+			          'content' => '<link rel="stylesheet" type="text/css" href="http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css" media="screen" /><iframe title="I-Frame showing NC State Branding Bar" name="ncsu_branding_bar" id="ncsu_branding_bar" frameborder="0" src="http://www.ncsu.edu/brand/utility-bar/iframe/index.php?color=red_on_white&amp;inurl=&amp;center=no" scrolling="no">Your browser does not support inline frames or is currently configured  not to display inline frames.<br />Visit <a href="http://ncsu.edu/">http://www.ncsu.edu</a>.</iframe>',
+			        );
+			        break;
+		      	case 1:
+			        
+			        $block = array(
+			          'subject' => t('NC State Brand Bar: Red Text on White (Centered)'), 
+			          'content' => '<link rel="stylesheet" type="text/css" href="http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css" media="screen" /><iframe title="I-Frame showing NC State Branding Bar" name="ncsu_branding_bar" id="ncsu_branding_bar" frameborder="0" src="http://www.ncsu.edu/brand/utility-bar/iframe/index.php?color=red_on_white&amp;inurl=&amp;center=yes" scrolling="no">Your browser does not support inline frames or is currently configured  not to display inline frames.<br />Visit <a href="http://ncsu.edu/">http://www.ncsu.edu</a>.</iframe>',
+			        );
+			        break;
+				
+				case 2:
+			        
+			        $block = array(
+			          'subject' => t('NC State Brand Bar: White Text on Red'), 
+			          'content' => '<link rel="stylesheet" type="text/css" href="http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css" media="screen" /><iframe title="I-Frame showing NC State Branding Bar" name="ncsu_branding_bar" id="ncsu_branding_bar" frameborder="0" src="http://www.ncsu.edu/brand/utility-bar/iframe/index.php?color=red&amp;inurl=&amp;center=no" scrolling="no">Your browser does not support inline frames or is currently configured  not to display inline frames.<br />Visit <a href="http://ncsu.edu/">http://www.ncsu.edu</a>.</iframe>',
+			        );
+			        break;
+			   	
+				case 3:
+			        
+			        $block = array(
+			          'subject' => t('NC State Brand Bar: White Text on Red (Centered)'), 
+			          'content' => '<link rel="stylesheet" type="text/css" href="http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css" media="screen" /><iframe title="I-Frame showing NC State Branding Bar" name="ncsu_branding_bar" id="ncsu_branding_bar" frameborder="0" src="http://www.ncsu.edu/brand/utility-bar/iframe/index.php?color=red&amp;inurl=&amp;center=yes" scrolling="no">Your browser does not support inline frames or is currently configured  not to display inline frames.<br />Visit <a href="http://ncsu.edu/">http://www.ncsu.edu</a>.</iframe>',
+			        );
+			        break;
+				
+			   	case 4:
+			        
+			        $block = array(
+			          'subject' => t('NC State Brand Bar: White Text on Black'), 
+			          'content' => '<link rel="stylesheet" type="text/css" href="http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css" media="screen" /><iframe title="I-Frame showing NC State Branding Bar" name="ncsu_branding_bar" id="ncsu_branding_bar" frameborder="0" src="http://www.ncsu.edu/brand/utility-bar/iframe/index.php?color=black&amp;inurl=&amp;center=no" scrolling="no">Your browser does not support inline frames or is currently configured  not to display inline frames.<br />Visit <a href="http://ncsu.edu/">http://www.ncsu.edu</a>.</iframe>',
+			        );
+			        break;
+			   	
+				case 5:
+			        
+			        $block = array(
+			          'subject' => t('NC State Brand Bar: White Text on Black (Centered)'), 
+			          'content' => '<link rel="stylesheet" type="text/css" href="http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css" media="screen" /><iframe title="I-Frame showing NC State Branding Bar" name="ncsu_branding_bar" id="ncsu_branding_bar" frameborder="0" src="http://www.ncsu.edu/brand/utility-bar/iframe/index.php?color=black&amp;inurl=&amp;center=yes" scrolling="no">Your browser does not support inline frames or is currently configured  not to display inline frames.<br />Visit <a href="http://ncsu.edu/">http://www.ncsu.edu</a>.</iframe>',
+			        );
+			        break;
+			        
+			  	case 6:
+			        
+			        $block = array(
+			          'subject' => t('NC State Brand Bar: Black Text on White'), 
+			          'content' => '<link rel="stylesheet" type="text/css" href="http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css" media="screen" /><iframe title="I-Frame showing NC State Branding Bar" name="ncsu_branding_bar" id="ncsu_branding_bar" frameborder="0" src="http://www.ncsu.edu/brand/utility-bar/iframe/index.php?color=black_on_white&amp;inurl=&amp;center=no" scrolling="no">Your browser does not support inline frames or is currently configured  not to display inline frames.<br />Visit <a href="http://ncsu.edu/">http://www.ncsu.edu</a>.</iframe>',
+			        );
+			        break;
+			   	
+				case 7:
+			        
+			        $block = array(
+			          'subject' => t('NC State Brand Bar: Black Text on White (Centered)'), 
+			          'content' => '<link rel="stylesheet" type="text/css" href="http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css" media="screen" /><iframe title="I-Frame showing NC State Branding Bar" name="ncsu_branding_bar" id="ncsu_branding_bar" frameborder="0" src="http://www.ncsu.edu/brand/utility-bar/iframe/index.php?color=black_on_white&amp;inurl=&amp;center=yes" scrolling="no">Your browser does not support inline frames or is currently configured  not to display inline frames.<br />Visit <a href="http://ncsu.edu/">http://www.ncsu.edu</a>.</iframe>',
+			        );
+			        break;
+		    }
+		    
+		    return $block;
+		}
+	}
+	
+	
