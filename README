@@ -1,0 +1,14 @@
+This is a module that implements the brand bar for NC State University for Drupal 6.x
+
+/*********************************************/
+        INSTALL INSTRUCTIONS
+/*********************************************/
+
+ 1. Download the repo from github
+ 2. Copy to directory in <drupal site root>/sites/all/modules/ncstatebrandingbar
+ 	(so that this readme's path is: <drupal site root>/sites/all/modules/ncstatebrandingbar/readme)
+ 3. Enable in Drupal module administartion page
+ 	(Browse to: <site root>/admin/build/modules)
+ 4. Configure which brand bar you want to display on different sections of your site via the Block Administration page
+ 	(Browse to: <site root>/admin/build/block)
+
