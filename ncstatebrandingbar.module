@@ -34,11 +34,14 @@
 	*/
 
 	function ncstatebrandingbar_block($op = 'list', $delta = 0, $edit = array()) {
-		  
+		
 		$blocks = array();
 		
+		
+		// if Drupal is just looking for a list of the blocks
 		if ($op == 'list') {
-		    $blocks[0] = array(
+		    
+			$blocks[0] = array(
 		      'info' => t('NC State Brand Bar: Red Text on White'), 
 		    );
 		
@@ -73,7 +76,7 @@
 		    return $blocks;
 		  
 		} elseif ($op == 'view') {
-		    
+		    // else if Drupal is attempting to render a block
 		  	switch ($delta) {
 		      
 		  		case 0:
