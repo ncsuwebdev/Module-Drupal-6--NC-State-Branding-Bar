@@ -1,5 +1,34 @@
 <?php
 	
+	/**
+	 * Implementation of hook_init().
+	 *
+ 	*/
+
+	function ncstatebrandingbar_init() {
+	  
+	    $path = drupal_get_path('module', 'ncstatebrandingbar');
+	    // Performance: Defer execution.
+	    drupal_add_css($path .'/ncstatebrandingbar.css', 'module', 'all', TRUE);
+	    drupal_add_js($path .'/ncstatebrandingbar.js', 'module', 'header', TRUE);
+	  
+	}
+	
+	/**
+	 * Preprocess page to add brand bar to closure, which is the last piece of the rendered page inside the body tag.
+	 */
+	function ncstatebrandingbar_preprocess_page(&$vars) {
+
+		$selectedBrandingBar = variable_get('ncstatebrandingbar_select_version', 1);
+		
+		$vars['closure'] .= '<div id="ncstate-branding-bar-module">';
+		$block = module_invoke('ncstatebrandingbar', 'block', 'view', $selectedBrandingBar);
+		$block = !empty($block) ? (object)$block : new stdclass;
+		$vars['closure'] .= theme('block',$block);
+		$vars['closure'] .= '</div>';
+	}
+	
+	
 	/*
 	* ncstatebrandingbar_help()
 	*
@@ -14,10 +43,12 @@
 		$output = '';  //declare your output variable
 	  	switch ($path) {
 	    	case "admin/help#ncstatebrandingbar":
-	      	$output = '<p>'.  t("This module will create a block for each version of the branding bar.") .'</p>';
+	      	$output .= '<p>'.  t("This module allows you to put a branding bar at the top of a drupal site, or select a different brand bar for different sections of the site using blocks.") .'</p>';
+	    	$output = '<p>'.  t("This module will create a block for each version of the branding bar.") .'</p>';
 	      	$output .= '<p>'.  t("You can then assign a branding bar to different sections of the via each block's configuration page.") .'</p>';
 	      	$output .= '<p>'.  t("<strong>For Example:</strong>") .'</p>';
 	      	$output .= '<p>'.  t("You could display the \"Black\" branding bar on one particular page, but the \"Red\" branding bar on all other pages.") .'</p>';
+	      	$output .= '<p>'.  t("NOTE: Using the brand bar blocks and the overall brand bar on the same page could cause problems.") .'</p>';
 	      	break;
 	  	}
 	  	return $output;
@@ -42,34 +73,38 @@
 		if ($op == 'list') {
 		    
 			$blocks[0] = array(
+		      'info' => t('None'), 
+		    );
+			
+			$blocks[1] = array(
 		      'info' => t('NC State Brand Bar: Red Text on White'), 
 		    );
 		
-		    $blocks[1] = array(
+		    $blocks[2] = array(
 		      'info' => t('NC State Brand Bar: Red Text on White (Centered)'), 
 		    );
 		    
-		    $blocks[2] = array(
+		    $blocks[3] = array(
 		      'info' => t('NC State Brand Bar: White Text on Red'), 
 		    );
 
-		    $blocks[3] = array(
+		    $blocks[4] = array(
 		      'info' => t('NC State Brand Bar: White Text on Red (Centered)'), 
 		    );
 		    
-		    $blocks[4] = array(
+		    $blocks[5] = array(
 		      'info' => t('NC State Brand Bar: White Text on Black'), 
 		    );
 
-		    $blocks[5] = array(
+		    $blocks[6] = array(
 		      'info' => t('NC State Brand Bar: White Text on Black (Centered)'), 
 		    );
 		    
-		    $blocks[6] = array(
+		    $blocks[7] = array(
 		      'info' => t('NC State Brand Bar: Black Text on White'), 
 		    );
 
-		    $blocks[7] = array(
+		    $blocks[8] = array(
 		      'info' => t('NC State Brand Bar: Black Text on White (Centered)'), 
 		    );
 		
@@ -82,62 +117,62 @@
 		  		case 0:
 			        
 			        $block = array(
-			          'subject' => t('NC State Brand Bar: Red Text on White'), 
+			          'subject' => t('None'), 
+			          'content' => '',
+			        );
+			        break;
+		  		
+		  		case 1:
+			        
+			        $block = array(
 			          'content' => '<link rel="stylesheet" type="text/css" href="http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css" media="screen" /><iframe title="I-Frame showing NC State Branding Bar" name="ncsu_branding_bar" id="ncsu_branding_bar" frameborder="0" src="http://www.ncsu.edu/brand/utility-bar/iframe/index.php?color=red_on_white&amp;inurl=&amp;center=no" scrolling="no">Your browser does not support inline frames or is currently configured  not to display inline frames.<br />Visit <a href="http://ncsu.edu/">http://www.ncsu.edu</a>.</iframe>',
 			        );
 			        break;
-		      	case 1:
+		      	case 2:
 			        
 			        $block = array(
-			          'subject' => t('NC State Brand Bar: Red Text on White (Centered)'), 
 			          'content' => '<link rel="stylesheet" type="text/css" href="http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css" media="screen" /><iframe title="I-Frame showing NC State Branding Bar" name="ncsu_branding_bar" id="ncsu_branding_bar" frameborder="0" src="http://www.ncsu.edu/brand/utility-bar/iframe/index.php?color=red_on_white&amp;inurl=&amp;center=yes" scrolling="no">Your browser does not support inline frames or is currently configured  not to display inline frames.<br />Visit <a href="http://ncsu.edu/">http://www.ncsu.edu</a>.</iframe>',
 			        );
 			        break;
 				
-				case 2:
+				case 3:
 			        
 			        $block = array(
-			          'subject' => t('NC State Brand Bar: White Text on Red'), 
 			          'content' => '<link rel="stylesheet" type="text/css" href="http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css" media="screen" /><iframe title="I-Frame showing NC State Branding Bar" name="ncsu_branding_bar" id="ncsu_branding_bar" frameborder="0" src="http://www.ncsu.edu/brand/utility-bar/iframe/index.php?color=red&amp;inurl=&amp;center=no" scrolling="no">Your browser does not support inline frames or is currently configured  not to display inline frames.<br />Visit <a href="http://ncsu.edu/">http://www.ncsu.edu</a>.</iframe>',
 			        );
 			        break;
 			   	
-				case 3:
+				case 4:
 			        
 			        $block = array(
-			          'subject' => t('NC State Brand Bar: White Text on Red (Centered)'), 
 			          'content' => '<link rel="stylesheet" type="text/css" href="http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css" media="screen" /><iframe title="I-Frame showing NC State Branding Bar" name="ncsu_branding_bar" id="ncsu_branding_bar" frameborder="0" src="http://www.ncsu.edu/brand/utility-bar/iframe/index.php?color=red&amp;inurl=&amp;center=yes" scrolling="no">Your browser does not support inline frames or is currently configured  not to display inline frames.<br />Visit <a href="http://ncsu.edu/">http://www.ncsu.edu</a>.</iframe>',
 			        );
 			        break;
 				
-			   	case 4:
+			   	case 5:
 			        
 			        $block = array(
-			          'subject' => t('NC State Brand Bar: White Text on Black'), 
 			          'content' => '<link rel="stylesheet" type="text/css" href="http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css" media="screen" /><iframe title="I-Frame showing NC State Branding Bar" name="ncsu_branding_bar" id="ncsu_branding_bar" frameborder="0" src="http://www.ncsu.edu/brand/utility-bar/iframe/index.php?color=black&amp;inurl=&amp;center=no" scrolling="no">Your browser does not support inline frames or is currently configured  not to display inline frames.<br />Visit <a href="http://ncsu.edu/">http://www.ncsu.edu</a>.</iframe>',
 			        );
 			        break;
 			   	
-				case 5:
+				case 6:
 			        
 			        $block = array(
-			          'subject' => t('NC State Brand Bar: White Text on Black (Centered)'), 
 			          'content' => '<link rel="stylesheet" type="text/css" href="http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css" media="screen" /><iframe title="I-Frame showing NC State Branding Bar" name="ncsu_branding_bar" id="ncsu_branding_bar" frameborder="0" src="http://www.ncsu.edu/brand/utility-bar/iframe/index.php?color=black&amp;inurl=&amp;center=yes" scrolling="no">Your browser does not support inline frames or is currently configured  not to display inline frames.<br />Visit <a href="http://ncsu.edu/">http://www.ncsu.edu</a>.</iframe>',
 			        );
 			        break;
 			        
-			  	case 6:
+			  	case 7:
 			        
 			        $block = array(
-			          'subject' => t('NC State Brand Bar: Black Text on White'), 
 			          'content' => '<link rel="stylesheet" type="text/css" href="http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css" media="screen" /><iframe title="I-Frame showing NC State Branding Bar" name="ncsu_branding_bar" id="ncsu_branding_bar" frameborder="0" src="http://www.ncsu.edu/brand/utility-bar/iframe/index.php?color=black_on_white&amp;inurl=&amp;center=no" scrolling="no">Your browser does not support inline frames or is currently configured  not to display inline frames.<br />Visit <a href="http://ncsu.edu/">http://www.ncsu.edu</a>.</iframe>',
 			        );
 			        break;
 			   	
-				case 7:
+				case 8:
 			        
 			        $block = array(
-			          'subject' => t('NC State Brand Bar: Black Text on White (Centered)'), 
 			          'content' => '<link rel="stylesheet" type="text/css" href="http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css" media="screen" /><iframe title="I-Frame showing NC State Branding Bar" name="ncsu_branding_bar" id="ncsu_branding_bar" frameborder="0" src="http://www.ncsu.edu/brand/utility-bar/iframe/index.php?color=black_on_white&amp;inurl=&amp;center=yes" scrolling="no">Your browser does not support inline frames or is currently configured  not to display inline frames.<br />Visit <a href="http://ncsu.edu/">http://www.ncsu.edu</a>.</iframe>',
 			        );
 			        break;
@@ -145,6 +180,82 @@
 		    
 		    return $block;
 		}
+	}
+	
+	
+	/*
+	* ncstatebrandingbar_admin()
+	*
+	* Create a module settings/configuration page
+	* http://drupal.org/node/206761
+	*/
+	
+	function ncstatebrandingbar_admin() {
+		$form = array();
+	
+		$form['ncstatebrandingbar_select_version'] = array(
+			'#type' => 'select',
+		    '#title' => t('Select a Brand Bar to display at the top of the website'),
+		    '#default_value' => variable_get('ncstatebrandingbar_select_version', 0),
+		    '#description' => t("<p>If you choose a brand bar here, it will be displayed at the top of your website, just inside the <body> tag.</p><p>If you want to choose which region the brand bar should be placed in, or you want to display different branding bars on different pages, use the blocks that this module provides at ( browse to : admin/build/block ).</p>"),
+		    '#required' => TRUE,
+		    '#options' => array(
+					0 => 'None',
+					1 => 'Red text on White',
+			  		2 => 'Red text on White (centered)',
+			      	3 => 'White text on Red',  
+			      	4 => 'White text on Red (centered)',    
+			      	5 => 'White text on Black',
+			      	6 => 'White text on Black - Centered',
+			      	7 => 'Black text on White',
+			      	8 => 'Black text on White - Centered',
+			),
+		);
+		
+		return system_settings_form($form);
+	
+	} // end function ncstatebrandingbar_admin
+	
+	
+	/*
+	* ncstatebrandingbar_menu()
+	*
+	* Need to define a URL within Drupal for the module settings page
+	* http://drupal.org/node/206761
+	*/
+	
+	
+	function ncstatebrandingbar_menu() {
+
+		$items = array();
+
+		$items['admin/settings/ncstatebrandingbar'] = array(
+		    'title' => 'NC State Branding Bar Module Settings',
+		    'description' => 'Configure Default Branding Bar',
+		    'page callback' => 'drupal_get_form',
+		    'page arguments' => array('ncstatebrandingbar_admin'),
+		    'access arguments' => array('access administration pages'),
+		    'type' => MENU_NORMAL_ITEM,
+		);
+
+  		return $items;
+	
+	} // end function ncstatebrandingbar_menu
+	
+	
+	/*
+	* ncstatebrandingbar_admin_validate()
+	* 
+	* Although we aren't required to validate the user input, it is nice to do so.
+	* This will make sure the input from the fields are the expected types (numeric etc)
+	* http://drupal.org/node/206761
+	*/
+		
+	function ncstatebrandingbar_admin_validate($form, &$form_state) {
+	  $selectedBrandBar = $form_state['values']['ncstatebrandingbar_select_version'];
+	  if (!is_numeric($selectedBrandBar)) {
+	    form_set_error('ncstatebrandingbar_select_version', t('Only a number is acceptable input for this configuration option.'));
+	  }
 	}
 	
 	
