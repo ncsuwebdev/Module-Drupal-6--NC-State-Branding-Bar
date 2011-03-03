@@ -21,9 +21,11 @@
 
 		$selectedBrandingBar = variable_get('ncstatebrandingbar_select_version', 1);
 		
-		$vars['closure'] .= '<div id="ncstate-branding-bar-module">';
 		$block = module_invoke('ncstatebrandingbar', 'block', 'view', $selectedBrandingBar);
 		$block = !empty($block) ? (object)$block : new stdclass;
+		
+		$vars['closure'] .= '<div id="ncstate-branding-bar-module">';
+		$vars['closure'] .= '<h2>NC State Branding Bar</h2>';
 		$vars['closure'] .= theme('block',$block);
 		$vars['closure'] .= '</div>';
 	}
@@ -117,7 +119,6 @@
 		  		case 0:
 			        
 			        $block = array(
-			          'subject' => t('None'), 
 			          'content' => '',
 			        );
 			        break;

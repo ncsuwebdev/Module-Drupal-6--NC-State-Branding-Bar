@@ -1,4 +1,10 @@
 #ncstate-branding-bar-module {
-	margin: 0;
-	padding: 0;
+	padding: 0px;
+	line-height: 0px;
+	margin: 0px;
+	display: none;
+}
+#ncstate-branding-bar-module h2 {
+	position: absolute;
+	left: -10000px;
 }
