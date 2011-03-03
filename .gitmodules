@@ -1,3 +1,0 @@
-[submodule "library/php-ncstate"]
-	path = library/php-ncstate
-	url = git@github.com:ncsuwebdev/PHP-Ncstate.git
