@@ -64,8 +64,8 @@ function getBrandingBarKeyDelimiter()
 function getBrandingBarSelections($withDescription = true)
 {
     
-	$bb = new Ncstate_Brand_Bar();
-	$colorOptions = $bb->getColorOptions();
+    $bb = new Ncstate_Brand_Bar();
+    $colorOptions = $bb->getColorOptions();
 
     $description = 'NC State Brand Bar';
 
@@ -92,9 +92,9 @@ function getBrandingBarSelections($withDescription = true)
 function ncstatebrandingbar_init()
 { 
     // grab the color library from the included repo (git submodule) and use it to populate the color lists
-	include(drupal_get_path('module', 'ncstatebrandingbar') . '/library/php-ncstate/Ncstate/Brand/Bar.php');
-	
-	$path = drupal_get_path('module', 'ncstatebrandingbar');
+    include(drupal_get_path('module', 'ncstatebrandingbar') . '/library/php-ncstate/Ncstate/Brand/Bar.php');
+    
+    $path = drupal_get_path('module', 'ncstatebrandingbar');
 
     // Performance: Defer execution.
     drupal_add_css($path . '/ncstatebrandingbar.css', 'module', 'all', true);
@@ -110,6 +110,9 @@ function ncstatebrandingbar_init()
 /**
  * Preprocess page to add brand bar to closure, which is the last piece of
  * the rendered page inside the body tag.
+ * 
+ * Preprocess variables for page.tpl.php
+ * http://api.drupal.org/api/drupal/includes--theme.inc/function/template_preprocess_page/6
  *
  * @param ? $vars - ?
  */
@@ -132,6 +135,7 @@ function ncstatebrandingbar_preprocess_page(&$vars)
  * Because of the use of the .info file that exists, this hook is now optional.
  * However, it is a best practice to implement it.
  * http://drupal.org/node/206756
+ * http://api.drupal.org/api/drupal/developer--hooks--core.php/function/hook_help/6
  *
  * @param string $path - ?
  * @param ? $arg - ?
@@ -160,7 +164,8 @@ function ncstatebrandingbar_help($path, $arg)
  * @param int $delta - code to identify the block
  * @param array $edit - only for "save" operation
  * @return ?
- *
+ * 
+ * http://api.drupal.org/api/drupal/developer--hooks--core.php/function/hook_block/6
  * http://drupal.org/node/206758
  */
 function ncstatebrandingbar_block($op = 'list', $delta = 'none', $edit = array())
@@ -248,6 +253,7 @@ function ncstatebrandingbar_admin()
 
 /**
  * Need to define a URL within Drupal for the module settings page
+ * http://api.drupal.org/api/drupal/developer--hooks--core.php/function/hook_menu/6
  * http://drupal.org/node/206761
  *
  * @return ?
