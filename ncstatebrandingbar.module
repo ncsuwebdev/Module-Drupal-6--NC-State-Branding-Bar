@@ -1,24 +1,40 @@
 <?php
 	
+	/*
+	 * 
+	 * create branding bar here, then call it later to generate a specific version
+	 * 
+	 */
+
+	function getBrandingBar($color, $center, $searchUrl = '&amp') {
+		return '<link rel="stylesheet" type="text/css" href="http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css" media="screen" />
+				<iframe title="I-Frame showing NC State Branding Bar" name="ncsu_branding_bar" id="ncsu_branding_bar" frameborder="0" 
+				src="http://www.ncsu.edu/brand/utility-bar/iframe/index.php?
+				color=' . $color . '&amp;inurl=' . $searchUrl . ';center=' . $center . '" scrolling="no">
+				Your browser does not support inline frames or is currently configured  not to display inline frames.<br />
+				Visit <a href="http://ncsu.edu/">http://www.ncsu.edu</a>.</iframe>';
+	} 
+
 	/**
 	 * Implementation of hook_init().
+	 * Initialize settings for the module
 	 *
  	*/
 
 	function ncstatebrandingbar_init() {
 	  
-	    $path = drupal_get_path('module', 'ncstatebrandingbar');
+		$path = drupal_get_path('module', 'ncstatebrandingbar');
 	    // Performance: Defer execution.
 	    drupal_add_css($path .'/ncstatebrandingbar.css', 'module', 'all', TRUE);
 	    drupal_add_js($path .'/ncstatebrandingbar.js', 'module', 'header', TRUE);
-	  
+		
 	}
 	
 	/**
 	 * Preprocess page to add brand bar to closure, which is the last piece of the rendered page inside the body tag.
 	 */
 	function ncstatebrandingbar_preprocess_page(&$vars) {
-
+		
 		$selectedBrandingBar = variable_get('ncstatebrandingbar_select_version', 1);
 		
 		$block = module_invoke('ncstatebrandingbar', 'block', 'view', $selectedBrandingBar);
@@ -114,67 +130,65 @@
 		  
 		} elseif ($op == 'view') {
 		    // else if Drupal is attempting to render a block
-		  	switch ($delta) {
+			
+			switch ($delta) {
 		      
 		  		case 0:
-			        
-			        $block = array(
-			          'content' => '',
-			        );
+					// no branding bar selected (none), so don't return a block at all
 			        break;
 		  		
 		  		case 1:
 			        
 			        $block = array(
-			          'content' => '<link rel="stylesheet" type="text/css" href="http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css" media="screen" /><iframe title="I-Frame showing NC State Branding Bar" name="ncsu_branding_bar" id="ncsu_branding_bar" frameborder="0" src="http://www.ncsu.edu/brand/utility-bar/iframe/index.php?color=red_on_white&amp;inurl=&amp;center=no" scrolling="no">Your browser does not support inline frames or is currently configured  not to display inline frames.<br />Visit <a href="http://ncsu.edu/">http://www.ncsu.edu</a>.</iframe>',
+						'content' => getBrandingBar('red_on_white', 'no')	          
 			        );
 			        break;
 		      	case 2:
 			        
 			        $block = array(
-			          'content' => '<link rel="stylesheet" type="text/css" href="http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css" media="screen" /><iframe title="I-Frame showing NC State Branding Bar" name="ncsu_branding_bar" id="ncsu_branding_bar" frameborder="0" src="http://www.ncsu.edu/brand/utility-bar/iframe/index.php?color=red_on_white&amp;inurl=&amp;center=yes" scrolling="no">Your browser does not support inline frames or is currently configured  not to display inline frames.<br />Visit <a href="http://ncsu.edu/">http://www.ncsu.edu</a>.</iframe>',
+			          'content' => getBrandingBar('red_on_white', 'yes')	   
 			        );
 			        break;
 				
 				case 3:
 			        
 			        $block = array(
-			          'content' => '<link rel="stylesheet" type="text/css" href="http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css" media="screen" /><iframe title="I-Frame showing NC State Branding Bar" name="ncsu_branding_bar" id="ncsu_branding_bar" frameborder="0" src="http://www.ncsu.edu/brand/utility-bar/iframe/index.php?color=red&amp;inurl=&amp;center=no" scrolling="no">Your browser does not support inline frames or is currently configured  not to display inline frames.<br />Visit <a href="http://ncsu.edu/">http://www.ncsu.edu</a>.</iframe>',
+			          'content' => getBrandingBar('red', 'no')
 			        );
 			        break;
 			   	
 				case 4:
 			        
 			        $block = array(
-			          'content' => '<link rel="stylesheet" type="text/css" href="http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css" media="screen" /><iframe title="I-Frame showing NC State Branding Bar" name="ncsu_branding_bar" id="ncsu_branding_bar" frameborder="0" src="http://www.ncsu.edu/brand/utility-bar/iframe/index.php?color=red&amp;inurl=&amp;center=yes" scrolling="no">Your browser does not support inline frames or is currently configured  not to display inline frames.<br />Visit <a href="http://ncsu.edu/">http://www.ncsu.edu</a>.</iframe>',
+			          'content' => getBrandingBar('red', 'yes')
 			        );
 			        break;
 				
 			   	case 5:
 			        
 			        $block = array(
-			          'content' => '<link rel="stylesheet" type="text/css" href="http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css" media="screen" /><iframe title="I-Frame showing NC State Branding Bar" name="ncsu_branding_bar" id="ncsu_branding_bar" frameborder="0" src="http://www.ncsu.edu/brand/utility-bar/iframe/index.php?color=black&amp;inurl=&amp;center=no" scrolling="no">Your browser does not support inline frames or is currently configured  not to display inline frames.<br />Visit <a href="http://ncsu.edu/">http://www.ncsu.edu</a>.</iframe>',
+			          'content' => getBrandingBar('black', 'no')
 			        );
 			        break;
 			   	
 				case 6:
 			        
 			        $block = array(
-			          'content' => '<link rel="stylesheet" type="text/css" href="http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css" media="screen" /><iframe title="I-Frame showing NC State Branding Bar" name="ncsu_branding_bar" id="ncsu_branding_bar" frameborder="0" src="http://www.ncsu.edu/brand/utility-bar/iframe/index.php?color=black&amp;inurl=&amp;center=yes" scrolling="no">Your browser does not support inline frames or is currently configured  not to display inline frames.<br />Visit <a href="http://ncsu.edu/">http://www.ncsu.edu</a>.</iframe>',
+			          'content' => getBrandingBar('black', 'yes')
 			        );
 			        break;
 			        
 			  	case 7:
 			        
 			        $block = array(
-			          'content' => '<link rel="stylesheet" type="text/css" href="http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css" media="screen" /><iframe title="I-Frame showing NC State Branding Bar" name="ncsu_branding_bar" id="ncsu_branding_bar" frameborder="0" src="http://www.ncsu.edu/brand/utility-bar/iframe/index.php?color=black_on_white&amp;inurl=&amp;center=no" scrolling="no">Your browser does not support inline frames or is currently configured  not to display inline frames.<br />Visit <a href="http://ncsu.edu/">http://www.ncsu.edu</a>.</iframe>',
+			          'content' => getBrandingBar('black_on_white', 'no')
 			        );
 			        break;
 			   	
 				case 8:
 			        
 			        $block = array(
-			          'content' => '<link rel="stylesheet" type="text/css" href="http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css" media="screen" /><iframe title="I-Frame showing NC State Branding Bar" name="ncsu_branding_bar" id="ncsu_branding_bar" frameborder="0" src="http://www.ncsu.edu/brand/utility-bar/iframe/index.php?color=black_on_white&amp;inurl=&amp;center=yes" scrolling="no">Your browser does not support inline frames or is currently configured  not to display inline frames.<br />Visit <a href="http://ncsu.edu/">http://www.ncsu.edu</a>.</iframe>',
+			          'content' => getBrandingBar('black_on_white', 'yes')
 			        );
 			        break;
 		    }
