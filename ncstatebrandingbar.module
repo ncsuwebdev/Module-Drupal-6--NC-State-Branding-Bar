@@ -24,30 +24,21 @@
  */
 function getBrandingBar($color, $center, $searchUrl = '')
 {
-    /**
-     * @todo - Replace with Ncstate_Brand_Bar implementation
-     *
-     * $bb = new Ncstate_Brand_Bar();
-     *
-     * $options = array(
-     *     'color'     => $color,
-     *     'centered'  => ($centered == 'yes'),
-     *     'searchUrl' => $searchUrl
-     * );
-     *
-     * $bb->setOptions($options);
-     *
-     * drupal_add_css($bb->getStylesheetUrl(), 'module', 'all', true);
-     *
-     * return $bb->getIframeHtml();
-     */
-
-    return '<link rel="stylesheet" type="text/css" href="http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css" media="screen" />
-            <iframe title="I-Frame showing NC State Branding Bar" name="ncsu_branding_bar" id="ncsu_branding_bar" frameborder="0"
-            src="http://www.ncsu.edu/brand/utility-bar/iframe/index.php?
-            color=' . $color . '&amp;inurl=' . $searchUrl . '&amp;center=' . (($center) ? 'yes' : 'no') . '" scrolling="no">
-            Your browser does not support inline frames or is currently configured  not to display inline frames.<br />
-            Visit <a href="http://ncsu.edu/">http://www.ncsu.edu</a>.</iframe>';
+    
+    $bb = new Ncstate_Brand_Bar();
+     
+    $options = array(
+          'color'     => $color,
+          'centered'  => ($center == 'yes'),
+          'searchUrl' => $searchUrl
+    );
+     
+    $bb->setOptions($options);
+    
+    drupal_add_css($bb->getStylesheetUrl(), 'module', 'all', true);
+     
+    return $bb->getIframeHtml();
+     
 } 
 
 
@@ -72,13 +63,9 @@ function getBrandingBarKeyDelimiter()
  */
 function getBrandingBarSelections($withDescription = true)
 {
-    // @todo - Replace with Ncstate_Brand_Bar::getColorOptions
-    $colorOptions = array(
-        'red'            => 'White Text, Red Background',
-        'black'          => 'White Text, Black Background',
-        'red_on_white'   => 'Red Text, White Background',
-        'black_on_white' => 'Black Text, White Background',
-    );
+    
+	$bb = new Ncstate_Brand_Bar();
+	$colorOptions = $bb->getColorOptions();
 
     $description = 'NC State Brand Bar';
 
@@ -90,7 +77,7 @@ function getBrandingBarSelections($withDescription = true)
     // One option each for left and centered
     foreach ($colorOptions as $key => $value) {
         $selections[$key . $delimiter . 'left']     = (($withDescription) ? $description . ': ' : '') . $value;
-        $selections[$key . $delimiter . 'centered'] = (($withDescription) ? $description . ': ' : '') . $value;
+        $selections[$key . $delimiter . 'centered'] = (($withDescription) ? $description . ': ' : '') . $value . ' (centered)';
     }
 
     return $selections;
@@ -104,7 +91,10 @@ function getBrandingBarSelections($withDescription = true)
  */
 function ncstatebrandingbar_init()
 { 
-    $path = drupal_get_path('module', 'ncstatebrandingbar');
+    // grab the color library from the included repo (git submodule) and use it to populate the color lists
+	include(drupal_get_path('module', 'ncstatebrandingbar') . '/library/php-ncstate/Ncstate/Brand/Bar.php');
+	
+	$path = drupal_get_path('module', 'ncstatebrandingbar');
 
     // Performance: Defer execution.
     drupal_add_css($path . '/ncstatebrandingbar.css', 'module', 'all', true);
