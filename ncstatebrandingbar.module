@@ -292,8 +292,10 @@ function ncstatebrandingbar_admin_validate($form, &$form_state)
 {
     $selectedBrandBar = $form_state['values']['ncstatebrandingbar_select_version'];
 
-    if (!is_numeric($selectedBrandBar)) {
-        form_set_error('ncstatebrandingbar_select_version', t('Only a number is acceptable input for this configuration option.'));
+    $selections = getBrandingBarSelections();
+    
+    if (!isset($selections[$selectedBrandBar])) {
+        form_set_error('ncstatebrandingbar_select_version', t('Only a preset option is available for this field.'));
     }
 }
 
