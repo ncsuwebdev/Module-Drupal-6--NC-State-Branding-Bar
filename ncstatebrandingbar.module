@@ -28,6 +28,10 @@
 	    drupal_add_css($path .'/ncstatebrandingbar.css', 'module', 'all', TRUE);
 	    drupal_add_js($path .'/ncstatebrandingbar.js', 'module', 'header', TRUE);
 		
+	    // pass variables to javascript so they can use the base path and theme path
+		$js = "var ncstatebrandingbar_append_to_tag = '". variable_get('ncstatebrandingbar_append_to_tag', 'body') . "';";
+		drupal_add_js($js, 'inline');
+	    
 	}
 	
 	/**
@@ -225,6 +229,15 @@
 			      	7 => 'Black text on White',
 			      	8 => 'Black text on White - Centered',
 			),
+		);
+		
+		$form['ncstatebrandingbar_append_to_tag'] = array(
+			'#type' => 'textfield',
+		    '#title' => t('Enter the HTML tag the brand bar should be appended to'),
+		    '#default_value' => variable_get('ncstatebrandingbar_append_to_tag', 'body'),
+		    '#description' => t("<p>Use CSS selectors like &quot;#pageHeader&quot; or &quot;body&quot;</p>"),
+		    '#required' => TRUE,
+			'#size'	=> 25,
 		);
 		
 		return system_settings_form($form);
