@@ -22,7 +22,7 @@
  *
  * @return string
  */
-function getBrandingBar($color, $center, $searchUrl = '')
+function getBrandingBar($color, $center)
 {
     
     $bb = new Ncstate_Brand_Bar();
@@ -30,9 +30,11 @@ function getBrandingBar($color, $center, $searchUrl = '')
     $options = array(
           'color'     => $color,
           'centered'  => ($center == 'yes'),
-          'searchUrl' => $searchUrl
+    	  'secure'	  => variable_get('ncstatebrandingbar_secure', 0),
+          'siteUrl'   => variable_get('ncstatebrandingbar_siteUrl', ''),
+    
     );
-     
+    
     $bb->setOptions($options);
     
     drupal_add_css($bb->getStylesheetUrl(), 'module', 'all', true);
@@ -173,7 +175,6 @@ function ncstatebrandingbar_block($op = 'list', $delta = 'none', $edit = array()
     // Gets all available selections
     $selections = getBrandingBarSelections();
 
-
     // if Drupal is just looking for a list of the blocks
     if ($op == 'list') {
 
@@ -200,7 +201,7 @@ function ncstatebrandingbar_block($op = 'list', $delta = 'none', $edit = array()
         }
 
         $options = explode(getBrandingBarKeyDelimiter(), $delta);
-
+        
         $color    = $options[0];
         $centered = ($options[1] == 'centered');
 
@@ -245,6 +246,24 @@ function ncstatebrandingbar_admin()
         '#required'      => TRUE,
         '#size'          => 25,
     );
+    
+    $form['ncstatebrandingbar_siteUrl'] = array(
+        '#type'          => 'textfield',
+        '#title'         => t('Site URL for Searching via the Branding Bar'),
+        '#default_value' => variable_get('ncstatebrandingbar_siteUrl', ''),
+        '#description'   => t("<p>Do not include http:// or https:// in this field. <br />*Will not work when Secure URLs are enabled. Make this blank to remove on-site searching from the branding bar.</p>"),
+        '#required'      => FALSE,
+        '#size'          => 50,
+    );
+    
+    $form['ncstatebrandingbar_secure'] = array(
+        '#type'          => 'select',
+        '#title'         => t('Use Secure URLS (https)?'),
+        '#default_value' => variable_get('ncstatebrandingbar_secure', 0),
+        '#description'   => t("<p>If you choose yes here, it will force the brand bar to use https instead of http.</p>"),
+        '#required'      => TRUE,
+        '#options'       => array(0 => 'No', 1 => 'Yes'),
+    );
 
     return system_settings_form($form);
 
@@ -264,7 +283,7 @@ function ncstatebrandingbar_menu()
 
     $items['admin/settings/ncstatebrandingbar'] = array(
         'title'            => 'NC State Branding Bar Module Settings',
-        'description'      => 'Configure Default Branding Bar',
+        'description'      => 'Configure Default Branding Bar and other options',
         'page callback'    => 'drupal_get_form',
         'page arguments'   => array('ncstatebrandingbar_admin'),
         'access arguments' => array('access administration pages'),
