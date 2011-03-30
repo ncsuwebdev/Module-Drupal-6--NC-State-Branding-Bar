@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    if ($('#ncstate-branding-bar-module').length > 0) {
+	if (!$('#ncstate-branding-bar-module').length) {
         return;
     }
 
