@@ -5,7 +5,7 @@
 	Module for adding the NC State Branding Bar to the top of your Drupal
 	website or as a block in a selected region.
 	
-	This plugin has been tested in Druypal 6.x.
+	This plugin has been tested in Drupal 6.x.
 
 
 /*********************************************/
@@ -28,7 +28,7 @@
 	 	(so that this readme's path is: 
 	 	<drupal site root>/sites/all/modules/ncstatebrandingbar/readme)
 	 
-	 3. Enable in Drupal module administartion page
+	 3. Enable in Drupal module administration page
 	 	(<your-site>/admin/build/modules)
 	 
 	 Choose which option you want to use: 
