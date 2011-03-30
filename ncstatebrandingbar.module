@@ -282,7 +282,7 @@ function ncstatebrandingbar_menu()
     $items = array();
 
     $items['admin/settings/ncstatebrandingbar'] = array(
-        'title'            => 'NC State Branding Bar Module Settings',
+        'title'            => 'NC State Branding Bar',
         'description'      => 'Configure Default Branding Bar and other options',
         'page callback'    => 'drupal_get_form',
         'page arguments'   => array('ncstatebrandingbar_admin'),
