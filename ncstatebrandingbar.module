@@ -37,7 +37,9 @@ function getBrandingBar($color, $center)
     
     $bb->setOptions($options);
     
-    drupal_add_css($bb->getStylesheetUrl(), 'module', 'all', true);
+    // commented out in Drupal 6, which does not support external stylesheets as part of drupal_add_css
+    // actual css code has been added temporarily to ncstatebrandingbar.css
+    //drupal_add_css($bb->getStylesheetUrl(), 'module', 'all', true);
      
     return $bb->getIframeHtml();
      
@@ -105,7 +107,7 @@ function ncstatebrandingbar_init()
     // pass variables to javascript so they can use the base path and theme path
     $js = "var ncstatebrandingbar_append_to_tag = '" . variable_get('ncstatebrandingbar_append_to_tag', 'body') . "';";
     drupal_add_js($js, 'inline');
-
+    
 }
 
 
