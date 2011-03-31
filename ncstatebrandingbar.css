@@ -1,3 +1,12 @@
+@import url('http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css');
+
+/*
+ * the import rule above is only included for Drupal 6, which does not support external style sheets as part of drupal_add_css
+ * this refers to the drupal_add_css section of the .module file
+ * 
+*/
+
+
 #ncstate-branding-bar-module {
     padding: 0px;
     line-height: 0px;
@@ -8,10 +17,3 @@
     position: absolute;
     left: -10000px;
 }
-
-/*
- * following import is only included for Drupal 6, which does not support external style sheets as part of drupal_add_css
- * this refers to the drupal_add_css section of the .module file
- * 
-*/
-@import url('http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css');
