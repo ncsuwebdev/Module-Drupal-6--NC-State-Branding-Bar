@@ -1,5 +1,5 @@
 name = NC State Branding Bar
-description = Module to create a custom content block that contains the NC State Branding bar for a Drupal 6.x site 
+description = Place the NC State Branding Bar at the top of the website, or use custom content blocks for placement in any region of the page (only for Drupal 6.x sites) 
 core = 6.x
 package = "NC State University Custom Modules"
-version = 6.x-1.0.3
+version = 6.x-1.0.4

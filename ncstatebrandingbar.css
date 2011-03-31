@@ -10,21 +10,8 @@
 }
 
 /*
- * following two lines only included for Drupal 6, which does not support external stylesheets as part of drupal_add_css
- * this is due to the drupal_add_css section of the .module file
+ * following import is only included for Drupal 6, which does not support external style sheets as part of drupal_add_css
+ * this refers to the drupal_add_css section of the .module file
  * 
 */
-
-body {
-    margin: 0;
-    padding: 0;
-    width: 100%;    
-}
-
-#ncsu_branding_bar {
-    margin: 0;
-    width: 100%;
-    border: 0;
-    padding: 0;
-    height: 31px;
-}
+@import url('http://www.ncsu.edu/brand/utility-bar/iframe/css/utility_bar_iframe.css');
