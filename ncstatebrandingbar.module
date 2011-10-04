@@ -68,7 +68,7 @@ function getBrandingBarKeyDelimiter()
 function getBrandingBarSelections($withDescription = true)
 {
     
-    $bb = new Ncstate_Brand_Bar();
+	$bb = new Ncstate_Brand_Bar();
     $colorOptions = $bb->getColorOptions();
 
     $description = 'NC State Brand Bar';
