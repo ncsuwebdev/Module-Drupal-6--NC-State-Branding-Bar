@@ -1,9 +1,10 @@
-name = NC State Branding Bar
+name = NC State Brand Bar
 description = Place the NC State Branding Bar at the top of the website, or use custom content blocks for placement in any region of the page (only for Drupal 6.x sites) 
 core = 6.x
 package = "NC State University Custom Modules"
 version = 6.x-1.1
 project = ncstatebrandingbar
+dependencies[] = ncsuphplibrary
 
 ; for updates to the theme, specify features server location
 project status url = http://drupal.ncsu.edu/features/fserver

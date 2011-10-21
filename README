@@ -19,10 +19,10 @@
 	@oitdesign
 
 /*********************************************/
-        INSTALL INSTRUCTIONS
+        MANUAL INSTALL INSTRUCTIONS
 /*********************************************/
 
-	 1. Download the repo from github
+	 1. Download the package from http://drupal.ncsu.edu/features
 	 
 	 2. Copy to directory in <drupal site root>/sites/all/modules/ncstatebrandingbar
 	 	(so that this readme's path is: 

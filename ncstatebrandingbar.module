@@ -1,12 +1,9 @@
 <?php
 /***************************************************************************
  *
- * Module Name:  NC State Branding Bar
- * Plugin URI:   http://oitdesign.ncsu.edu
- * Description:  Creates an NC State Branding bar for integration into a Drupal site
- * Version:      1.0.0
- * Author:       OIT Design, Education and Outreach
- * Author URI:   http://oitdesign.ncsu.edu
+ * Module Name:  NC State Brand Bar
+ * Plugin URI:   http://drupal.ncsu.edu
+ * Description:  Creates an NC State Brand bar for integration into a Drupal site
  *
  * @todo - Replace all ? with appropriate documentation
  * 
@@ -68,23 +65,23 @@ function getBrandingBarKeyDelimiter()
 function getBrandingBarSelections($withDescription = true)
 {
     
-	$bb = new Ncstate_Brand_Bar();
-    $colorOptions = $bb->getColorOptions();
-
-    $description = 'NC State Brand Bar';
-
-    $selections = array();
-    $selections['none'] = 'None';
-
-    $delimiter = getBrandingBarKeyDelimiter();
-
-    // One option each for left and centered
-    foreach ($colorOptions as $key => $value) {
-        $selections[$key . $delimiter . 'left']     = (($withDescription) ? $description . ': ' : '') . $value;
-        $selections[$key . $delimiter . 'centered'] = (($withDescription) ? $description . ': ' : '') . $value . ' (centered)';
-    }
-
-    return $selections;
+		$bb = new Ncstate_Brand_Bar();
+	    $colorOptions = $bb->getColorOptions();
+	
+	    $description = 'NC State Brand Bar';
+	
+	    $selections = array();
+	    $selections['none'] = 'None';
+	
+	    $delimiter = getBrandingBarKeyDelimiter();
+	
+	    // One option each for left and centered
+	    foreach ($colorOptions as $key => $value) {
+	        $selections[$key . $delimiter . 'left']     = (($withDescription) ? $description . ': ' : '') . $value;
+	        $selections[$key . $delimiter . 'centered'] = (($withDescription) ? $description . ': ' : '') . $value . ' (centered)';
+	    }
+	
+	    return $selections;
 
 }
 
@@ -95,10 +92,8 @@ function getBrandingBarSelections($withDescription = true)
  */
 function ncstatebrandingbar_init()
 { 
-    // grab the color library from the included repo (git submodule) and use it to populate the color lists
-    include(drupal_get_path('module', 'ncstatebrandingbar') . '/library/php-ncstate/Ncstate/Brand/Bar.php');
     
-    $path = drupal_get_path('module', 'ncstatebrandingbar');
+	$path = drupal_get_path('module', 'ncstatebrandingbar');
 
     // Performance: Defer execution.
     drupal_add_css($path . '/ncstatebrandingbar.css', 'module', 'all', true);
@@ -128,7 +123,7 @@ function ncstatebrandingbar_preprocess_page(&$vars)
     $block = (!empty($block)) ? (object)$block : new stdClass();
 
     $vars['closure'] .= '<div id="ncstate-branding-bar-module">';
-    $vars['closure'] .= '<h2>NC State Branding Bar</h2>';
+    $vars['closure'] .= '<h2>NC State Brand Bar</h2>';
     $vars['closure'] .= theme('block',$block);
     $vars['closure'] .= '</div>';
 }
@@ -284,7 +279,7 @@ function ncstatebrandingbar_menu()
     $items = array();
 
     $items['admin/settings/ncstatebrandingbar'] = array(
-        'title'            => 'NC State Branding Bar',
+        'title'            => 'NC State Brand Bar',
         'description'      => 'Configure Default Branding Bar and other options',
         'page callback'    => 'drupal_get_form',
         'page arguments'   => array('ncstatebrandingbar_admin'),
