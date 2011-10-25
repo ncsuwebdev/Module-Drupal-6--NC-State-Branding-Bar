@@ -65,6 +65,10 @@ function getBrandingBarKeyDelimiter()
 function getBrandingBarSelections($withDescription = true)
 {
     
+		$libraryPath = '/library/php-ncstate/Ncstate/Brand';	
+		$includePath = drupal_get_path('module', 'ncsuphplibrary') . $libraryPath;
+		set_include_path(get_include_path() . PATH_SEPARATOR . $libraryPath);
+		
 		$bb = new Ncstate_Brand_Bar();
 	    $colorOptions = $bb->getColorOptions();
 	
