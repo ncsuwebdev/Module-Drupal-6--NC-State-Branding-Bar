@@ -54,7 +54,6 @@ function getBrandingBarKeyDelimiter()
     return '__';
 }
 
-
 /**
  * Returns the available options for the implementation of the brand bar
  * 
@@ -64,12 +63,14 @@ function getBrandingBarKeyDelimiter()
  */
 function getBrandingBarSelections($withDescription = true)
 {
-    
-		$libraryPath = '/library/php-ncstate/Ncstate/Brand';	
-		$includePath = drupal_get_path('module', 'ncsuphplibrary') . $libraryPath;
-		set_include_path(get_include_path() . PATH_SEPARATOR . $libraryPath);
-		
-		$bb = new Ncstate_Brand_Bar();
+    		
+    	$libraryPath = '/library/php-ncstate/Ncstate/Brand/Bar.php';	
+	    $includePath = drupal_get_path('module', 'ncsuphplibrary');	
+	    
+	    // required during updates as the path isn't available yet to call 'new Ncstate_Brand_Bar()'
+	    include_once($includePath . $libraryPath);
+    		
+	    $bb = new Ncstate_Brand_Bar();
 	    $colorOptions = $bb->getColorOptions();
 	
 	    $description = 'NC State Brand Bar';
@@ -97,7 +98,7 @@ function getBrandingBarSelections($withDescription = true)
 function ncstatebrandingbar_init()
 { 
     
-	$path = drupal_get_path('module', 'ncstatebrandingbar');
+    $path = drupal_get_path('module', 'ncstatebrandingbar');
 
     // Performance: Defer execution.
     drupal_add_css($path . '/ncstatebrandingbar.css', 'module', 'all', true);
